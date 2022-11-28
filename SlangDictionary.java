@@ -104,19 +104,15 @@ public class SlangDictionary{
         Scanner sc= new Scanner(System.in);
         if(dic.containsKey(slang))
         {
-            System.out.println("This slang is availble in this Dictionary. Press 1 to OverWrite this Slang, 2 to Duplicate and 0 to Cancel!");
+            System.out.println("This slang is availble in this Dictionary. Press 1 to OverWrite this Slang and 0 to Cancel!");
             int check= sc.nextInt();
             if (check==1)
             {
                 System.out.print("Enter definition of this slang: ");
+                sc.nextLine();
                 String definition= sc.nextLine();
                 dic.put(slang, definition);
-                System.out.println("Complete OverWrite!");
-            }
-            else if(check==2)
-            {
-                System.out.println("Duplicate!");
-
+                System.out.println("Complete OverWrite! New Slang is: "+slang+", mean: "+definition);
             }
             else
             {
@@ -127,14 +123,170 @@ public class SlangDictionary{
             System.out.print("Enter definition of this slang: ");
             String definition= sc.nextLine();
             dic.put(slang, definition);
-            System.out.println("Complete Add New Slang!");
+            System.out.println("Complete Add New Slang! New Slang is: "+slang+", mean: "+definition);
         }
         
         return dic;
 
     }
+    public static HashMap EditSlang(HashMap<String,String>dic,String slang)
+    {
+        Scanner sc= new Scanner(System.in);
+        if(dic.containsKey(slang))
+        {
+            System.out.println("Press 1 to Edit this Slang, 0 to Cancel!");
+            int check= sc.nextInt();
+            if (check==1)
+            {
+                System.out.print("Enter definition of this slang: ");
+                sc.nextLine();
+                String definition= sc.nextLine();
+                dic.put(slang, definition);
+                System.out.println("Complete Edit!");
+            }
+            else
+            {
+                System.out.println("Cancel!");
+            }  
+        }
+        else{
+            System.out.println("Error: This Slang is unvailable in this Dictionary!");
+        }
+        
+        return dic;
 
+    }
+    public static HashMap DeleteSlang(HashMap<String,String>dic,String slang)
+    {
+        Scanner sc= new Scanner(System.in);
+        if(dic.containsKey(slang))
+        {
+            System.out.println("Press 1 to Delete this Slang, 0 to Cancel!");
+            int check= sc.nextInt();
+            if (check==1)
+            {
+              
+                dic.remove(slang);
+                System.out.println("Complete Delete this Slang!");
+            }
+            else
+            {
+                System.out.println("Cancel!");
+            }  
+        }
+        else{
+            System.out.println("Error: This Slang is unvailable in this Dictionary!");
+        }
+        
+        return dic;
 
+    }
+    public static void RandomSlang(HashMap<String,String>dic)
+    {
+        Set<String> keySet = dic.keySet();
+        List<String> keyList = new ArrayList<>(keySet);
+
+        int size = keyList.size();
+        int index = new Random().nextInt(size);
+        String randomKey = keyList.get(index);
+        String randomValue = dic.get(randomKey);
+        System.out.println("Random Slang is: "+randomKey+", mean: "+ randomValue);
+    }
+
+    public static void QuizWithSlang(HashMap<String,String>dic)
+    {
+        Scanner sc= new Scanner(System.in);
+        Set<String> keySet = dic.keySet();
+        List<String> keyList = new ArrayList<>(keySet);
+
+        int size = keyList.size();
+        int index_res = new Random().nextInt(size);
+        int a1=new Random().nextInt(size);
+        if (a1==index_res)
+        {
+            a1=new Random().nextInt(size);
+        }
+        int a2=new Random().nextInt(size);
+        if (a1==a2|a2==index_res)
+        {
+            a2=new Random().nextInt(size);
+        }
+        int a3=new Random().nextInt(size);
+        if (a2==a3|a1==a3|a3==index_res)
+        {
+            a3=new Random().nextInt(size);
+        }
+        String key = keyList.get(index_res);
+        String value_res = dic.get(key);
+
+        String a1_key=keyList.get(a1);
+        String a1_value = dic.get(a1_key);
+
+        String a2_key=keyList.get(a2);
+        String a2_value = dic.get(a2_key);
+
+        String a3_key=keyList.get(a3);
+        String a3_value = dic.get(a3_key);
+
+        System.out.print("What is Definition of this Slang: "+key+" ?\n"+"1. "+ a1_value+"\n2. "+a2_value+"\n3. "+value_res +"\n4. "+a3_value+"\n\nPlease choose Answer:");
+        int choose=sc.nextInt();
+        if (choose==3)
+        {
+            System.out.println("Congratulation! This is Right Answer!");
+        }
+        else{
+            System.out.println("Oh No! This is Wrong Answer!");
+        }
+    }
+
+    public static void QuizWithDefinition(HashMap<String,String>dic)
+    {
+        Scanner sc= new Scanner(System.in);
+        Set<String> keySet = dic.keySet();
+        List<String> keyList = new ArrayList<>(keySet);
+
+        int size = keyList.size();
+        int index_res = new Random().nextInt(size);
+        int a1=new Random().nextInt(size);
+        if (a1==index_res)
+        {
+            a1=new Random().nextInt(size);
+        }
+        int a2=new Random().nextInt(size);
+        if (a1==a2|a2==index_res)
+        {
+            a2=new Random().nextInt(size);
+        }
+        int a3=new Random().nextInt(size);
+        if (a2==a3|a1==a3|a3==index_res)
+        {
+            a3=new Random().nextInt(size);
+        }
+        String key = keyList.get(index_res);
+        String value_res = dic.get(key);
+
+        String a1_key=keyList.get(a1);
+        String a1_value = dic.get(a1_key);
+
+        String a2_key=keyList.get(a2);
+        String a2_value = dic.get(a2_key);
+
+        String a3_key=keyList.get(a3);
+        String a3_value = dic.get(a3_key);
+        
+
+        System.out.print("What is Slang which Definition is : "+value_res+" ?\n"+"1. "+ a1_key+"\n2. "+a2_key+"\n3. "+ a3_key+"\n4. "+key+"\n\nPlease choose Answer:");
+        int choose=sc.nextInt();
+        if (choose==4)
+        {
+            System.out.println("Congratulation! This is Right Answer!");
+        }
+        else{
+            System.out.println("Oh No! This is Wrong Answer!");
+        }
+       
+
+    }
     public static void main(String args[])
     {
         Scanner sc= new Scanner(System.in);
@@ -143,11 +295,16 @@ public class SlangDictionary{
         //FindFromDefinition("history.txt",dictionary,"Maniacal");
         //FindFromSlang("history.txt",dictionary,">:D");
         //PrintHistory("history.txt");
-        
+        //dictionary=AddSlang(dictionary,">:(");
+        //dictionary=EditSlang(dictionary, ">:D")
+        //dictionary=DeleteSlang(dictionary, ">:D")
+        //HashMap <String,String> reset=new HashMap<String,String>();
+        //reset=ReadFile("test.txt");
+        //RandomSlang(dictionary);
+        //QuizWithSlang(dictionary);
+        //QuizWithDefinition(dictionary);
 
 
-        
-        
         /* 
         int choose=1;
         System.out.println("--- WELCOME TO SLANG DICTIONARY PROGRAMMING ---");
