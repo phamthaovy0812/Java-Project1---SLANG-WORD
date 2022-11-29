@@ -40,12 +40,12 @@ public class SlangDictionary{
             ex.printStackTrace();
         }
     }
-    public static void WriteHistoryFile(String path, String s)
+    public static void WriteHistoryFile(String path, String input, String res)
     {
         try{
             FileWriter fw= new FileWriter(path,true);
             BufferedWriter bw = new BufferedWriter(fw);
-            bw.write(s+'\n');
+            bw.write("search: "+input+" Result: "+res+'\n');
             bw.close();
         }catch(Exception ex){
             ex.printStackTrace();
@@ -64,35 +64,60 @@ public class SlangDictionary{
         if(!dic.containsKey(slang))
         {
             System.out.println("Can't find this Slang in this Dictionary!");
+            String res="Slang Unvailable!";
+            WriteHistoryFile(path, slang,res);
         }
         else{
             System.out.println("This slang is: "+slang+", mean: "+dic.get(slang));
-            WriteHistoryFile(path, slang);
+            WriteHistoryFile(path, slang,dic.get(slang));
         }
     } 
 
     public static void FindFromDefinition(String path,HashMap<String,String>dic,String definition )
     {
+        boolean check=false;
+        String res="";
         for (String i:dic.keySet())
         {
             String def=dic.get(i);
            
-            
             if(def.contains(definition))
             {
                 System.out.println("slang: "+i+'\n');
-                WriteHistoryFile(path, definition);
-            }
-            else{
-                System.out.println("No slang!");
+                res=res +" "+ i;
+                check=true;
             }
         }  
+        if (check==true)
+        {
+            WriteHistoryFile(path, definition,res);
+        }
+        if (check==false)
+        {
+            res="No slang!";
+            WriteHistoryFile(path, definition,res);
+            System.out.println(res);
+        }
     }
 
     public static void PrintHistory (String path)
     {
-        HashMap<String,String> his=ReadFile(path);
-        Print(his);
+        
+        try{
+            FileInputStream fis = new FileInputStream(path);
+            InputStreamReader isr = new InputStreamReader(fis);
+            BufferedReader bfr = new BufferedReader(isr);
+            String line = bfr.readLine();
+            while(line != null){
+                System.out.println(line);
+            }
+            fis.close();
+            isr.close();
+            bfr.close();
+        }
+        catch(Exception ex){
+            ex.printStackTrace();
+        }
     }
 
     public static HashMap AddSlang(HashMap<String,String>dic,String slang)
@@ -288,7 +313,7 @@ public class SlangDictionary{
         Scanner sc= new Scanner(System.in);
         HashMap <String,String> dictionary=new HashMap<String,String>();
         dictionary=ReadFile("test.txt");
-        FindFromDefinition("history.txt",dictionary,"Angry");
+        //FindFromDefinition("history.txt",dictionary,"hihihihihi");
         //FindFromSlang("history.txt",dictionary,">:D");
         //PrintHistory("history.txt");
         //dictionary=AddSlang(dictionary,">:(");
@@ -299,7 +324,7 @@ public class SlangDictionary{
         //RandomSlang(dictionary);
         //QuizWithSlang(dictionary);
         //QuizWithDefinition(dictionary);
-        /* 
+        
         int choose=1;
         System.out.println("--- WELCOME TO SLANG DICTIONARY PROGRAMMING ---");
         while ( choose!=0)
@@ -318,9 +343,9 @@ public class SlangDictionary{
                 case 1:
                 {
                     System.out.println("\n---Search by slang word---");
+                    System.out.print("Enter slang:");
                     sc.nextLine();
                     String slang=sc.nextLine();
-
                     FindFromSlang("history.txt",dictionary,slang);
                     break;
                 }
@@ -378,7 +403,7 @@ public class SlangDictionary{
         }
         System.out.println("\nThank you for using program! Have a nice day!");
         
-     */
+     
     }
   
 }
