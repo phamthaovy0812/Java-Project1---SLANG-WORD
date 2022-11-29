@@ -313,7 +313,7 @@ public class SlangDictionary{
     {
         Scanner sc= new Scanner(System.in);
         HashMap <String,String> dictionary=new HashMap<String,String>();
-        dictionary=ReadFile("test.txt");
+        dictionary=ReadFile("slang.txt");
         
         int choose=1;
         System.out.println("--- WELCOME TO SLANG DICTIONARY PROGRAMMING ---");
@@ -385,7 +385,7 @@ public class SlangDictionary{
                 {
                     System.out.println("\n---Reset the original slang words list---");
                     HashMap <String,String> reset=new HashMap<String,String>();
-                    reset=ReadFile("test.txt");
+                    reset=ReadFile("slang.txt");
                     System.out.println("\nComplete Reset!. Reset Slang Dictionary:\n");
                     Print(reset);
                     break;
