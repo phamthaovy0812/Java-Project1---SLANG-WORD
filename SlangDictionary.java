@@ -104,15 +104,16 @@ public class SlangDictionary{
     {
         
         try{
-            FileInputStream fis = new FileInputStream(path);
-            InputStreamReader isr = new InputStreamReader(fis);
-            BufferedReader bfr = new BufferedReader(isr);
-            String line = bfr.readLine();
+        
+            FileReader fr=new FileReader(path);
+            BufferedReader bfr = new BufferedReader(fr);
+            String line=bfr.readLine();
+            
             while(line != null){
                 System.out.println(line);
+                line=bfr.readLine();
             }
-            fis.close();
-            isr.close();
+            fr.close();
             bfr.close();
         }
         catch(Exception ex){
@@ -313,17 +314,6 @@ public class SlangDictionary{
         Scanner sc= new Scanner(System.in);
         HashMap <String,String> dictionary=new HashMap<String,String>();
         dictionary=ReadFile("test.txt");
-        //FindFromDefinition("history.txt",dictionary,"hihihihihi");
-        //FindFromSlang("history.txt",dictionary,">:D");
-        //PrintHistory("history.txt");
-        //dictionary=AddSlang(dictionary,">:(");
-        //dictionary=EditSlang(dictionary, ">:D")
-        //dictionary=DeleteSlang(dictionary, ">:D")
-        //HashMap <String,String> reset=new HashMap<String,String>();
-        //reset=ReadFile("test.txt");
-        //RandomSlang(dictionary);
-        //QuizWithSlang(dictionary);
-        //QuizWithDefinition(dictionary);
         
         int choose=1;
         System.out.println("--- WELCOME TO SLANG DICTIONARY PROGRAMMING ---");
@@ -352,51 +342,75 @@ public class SlangDictionary{
                 case 2:
                 {
                     System.out.println("\n---Search by definition---");
+                    System.out.print("Enter definition:");
+                    sc.nextLine();
+                    String definition=sc.nextLine();
+                    FindFromDefinition("history.txt",dictionary,definition);
                     break;
                 }
                 case 3:
                 {
-                    System.out.println("\n---Show history - list of searched slang words---");
+                    System.out.println("\n---Show history - list of searched slang words---\n");
+                    PrintHistory("history.txt");
                     break;
                 }
                 case 4:
                 {
                     System.out.println("\n---Add a new slang words---");
+                    System.out.print("Enter slang:");
+                    sc.nextLine();
+                    String slang=sc.nextLine();
+                    dictionary=AddSlang(dictionary,slang);
                     break;
                 }
                 case 5:
                 {
                     System.out.println("\n---Edit a slang word---");
+                    System.out.print("Enter slang:");
+                    sc.nextLine();
+                    String slang=sc.nextLine();
+                    dictionary=EditSlang(dictionary,slang);
                     break;
                 }
                 case 6:
                 {
                     System.out.println("\n---Delete a slang word---");
+                    System.out.print("Enter slang:");
+                    sc.nextLine();
+                    String slang=sc.nextLine();
+                    dictionary=DeleteSlang(dictionary,slang);
                     break;
                 }
                 case 7:
                 {
                     System.out.println("\n---Reset the original slang words list---");
+                    HashMap <String,String> reset=new HashMap<String,String>();
+                    reset=ReadFile("test.txt");
+                    System.out.println("\nComplete Reset!. Reset Slang Dictionary:\n");
+                    Print(reset);
                     break;
                 }
                 case 8:
                 {
-                    System.out.println("\n---Random 1 slang word (On this day slang word)---");
+                    System.out.println("\n---Random 1 slang word (On this day slang word)---\n");
+                    RandomSlang(dictionary);
                     break;
                 }
                 case 9:
                 {
-                    System.out.println("\n---Quiz (the program displays 1 random slang)---");
+                    System.out.println("\n---Quiz (the program displays 1 random slang)---\n");
+                    QuizWithSlang(dictionary);
                     break;
                 }
                 case 10:
                 {
-                    System.out.println("\n---Quiz (the program displays 1 random definition)---");
+                    System.out.println("\n---Quiz (the program displays 1 random definition)---\n");
+                    QuizWithDefinition(dictionary);
                     break;
                 }
             }
 
-            System.out.println("Please enter 0 if you want to EXIT/ 1 if you dont want.");
+            System.out.println("\nPlease enter 0 if you want to EXIT/ 1 if you dont want.");
             System.out.print("Your choose is: ");
             choose=sc.nextInt();
             System.out.println("---------------------------------------------------------");

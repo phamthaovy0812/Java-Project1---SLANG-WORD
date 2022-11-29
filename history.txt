@@ -1,0 +1,4 @@
+search: hihihahah Result: No slang!
+search: hihi Result: No slang!
+search: giddy Result:  %)
+search: ):< Result: some where
